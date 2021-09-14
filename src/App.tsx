@@ -5,6 +5,7 @@ import './App.css';
 interface Todo {
   value: string;
   id: number;
+  checked: boolean;
 }
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     const newTodo: Todo = {
       value: text,
       id: new Date().getTime(),
+      checked: false,
     }
 
     setTodos([newTodo, ...todos])
@@ -34,6 +36,16 @@ function App() {
     })
     setTodos(newTodos)
   }
+
+  const handleOnCheck = (id: number, checkd: boolean) => {
+    const newTodos = todos.map((todo) => {
+      if(todo.id === id){
+        todo.checked = !checkd
+      }
+      return todo
+    })
+    setTodos(newTodos)
+  }
   return (
     <>
     <form onSubmit={(e) => handleOnSubmit(e)}>
@@ -42,7 +54,12 @@ function App() {
     </form>
     <ul>
         {todos.map((todo) => {
-          return <li key={todo.id}><input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} /></li>
+          return (
+          <li key={todo.id}>
+            <input type="checkbox" checked={todo.checked} onChange={(e) => handleOnCheck(todo.id, todo.checked)} />
+            <input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} />
+          </li>
+          )
         })}
     </ul>
     </>
