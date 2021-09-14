@@ -23,6 +23,17 @@ function App() {
     setTodos([newTodo, ...todos])
     setText("")
   }
+
+  // どのtodoが編集されたのかを特定するため、そのtodoのidを引数として受け取る
+  const handleOnEdit = (id:number, value:string) => {
+    const newTodos = todos.map((todo) => {
+      if( todo.id === id) {
+          todo.value = value;
+      }
+      return todo;
+    })
+    setTodos(newTodos)
+  }
   return (
     <>
     <form onSubmit={(e) => handleOnSubmit(e)}>
@@ -31,7 +42,7 @@ function App() {
     </form>
     <ul>
         {todos.map((todo) => {
-          return <li key={todo.id}><input type="text" value={todo.value} onChange={(e) => e.preventDefault()} /></li>
+          return <li key={todo.id}><input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} /></li>
         })}
     </ul>
     </>
