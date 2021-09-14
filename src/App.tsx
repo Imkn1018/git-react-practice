@@ -6,6 +6,7 @@ interface Todo {
   value: string;
   id: number;
   checked: boolean;
+  removed: boolean
 }
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
       value: text,
       id: new Date().getTime(),
       checked: false,
+      removed: false
     }
 
     setTodos([newTodo, ...todos])
@@ -46,6 +48,16 @@ function App() {
     })
     setTodos(newTodos)
   }
+
+  const handleOnRemove  = (id: number, removed: boolean) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.removed = !removed;
+      }
+      return todo;
+    })
+    setTodos(newTodos)
+  }
   return (
     <>
     <form onSubmit={(e) => handleOnSubmit(e)}>
@@ -58,6 +70,9 @@ function App() {
           <li key={todo.id}>
             <input type="checkbox" checked={todo.checked} onChange={(e) => handleOnCheck(todo.id, todo.checked)} />
             <input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} disabled={todo.checked} />
+            <button onClick={() => handleOnRemove(todo.id, todo.removed)}>
+              {todo.removed ? "復元" : "削除"}
+              </button>
           </li>
           )
         })}
