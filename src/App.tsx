@@ -4,9 +4,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <button></button>
-    </div>
+    <form action="">
+      <input type="text" value="" />
+      <input type="submit" value="追加" />
+    </form>
   );
 }
 
