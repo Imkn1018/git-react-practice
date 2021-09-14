@@ -68,8 +68,8 @@ function App() {
         {todos.map((todo) => {
           return (
           <li key={todo.id}>
-            <input type="checkbox" checked={todo.checked} onChange={(e) => handleOnCheck(todo.id, todo.checked)} />
-            <input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} disabled={todo.checked} />
+            <input type="checkbox" disabled={todo.removed} checked={todo.checked} onChange={(e) => handleOnCheck(todo.id, todo.checked)} />
+            <input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} disabled={todo.checked || todo.removed} />
             <button onClick={() => handleOnRemove(todo.id, todo.removed)}>
               {todo.removed ? "復元" : "削除"}
               </button>
