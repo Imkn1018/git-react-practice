@@ -57,7 +57,7 @@ function App() {
           return (
           <li key={todo.id}>
             <input type="checkbox" checked={todo.checked} onChange={(e) => handleOnCheck(todo.id, todo.checked)} />
-            <input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} />
+            <input type="text" value={todo.value} onChange={(e) => handleOnEdit(todo.id, e.target.value)} disabled={todo.checked} />
           </li>
           )
         })}
